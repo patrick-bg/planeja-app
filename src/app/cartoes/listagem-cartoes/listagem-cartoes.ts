@@ -16,7 +16,7 @@ export class ListagemCartoes implements OnInit {
   service = inject(CartaoService);
   listagem$!: Observable<PageResult<DetalhesCartao>>;
   paginaAtual = 0;
-  tamanhoPagina = 10;
+  tamanhoPagina = 5;
 
   ngOnInit(): void {
     this.listarCartoes();
@@ -31,4 +31,37 @@ export class ListagemCartoes implements OnInit {
     this.paginaAtual = pagina;
     this.listarCartoes();
   }
+
+  navegarProximo(listagem: PageResult<DetalhesCartao>){
+    if(!listagem.last){
+      this.navegar(listagem.number + 1);
+    }
+  }
+
+  navegarAnterior(listagem: PageResult<DetalhesCartao>){
+    if(!listagem.first){
+      this.navegar(listagem.number - 1);
+    }
+  }
+
+  paginas(totalPages: number) : number[] {
+    return Array.from( { length: totalPages}, (valor, index) => index);
+  }
+
+  registroInicial(listagem: PageResult<DetalhesCartao>){
+    if(listagem.totalElements === 0){
+      return 0;
+    }
+
+    return (listagem.number * listagem.size) + 1;
+  }
+
+  registroFinal(listagem: PageResult<DetalhesCartao>){
+    if(listagem.totalElements === 0) {
+      return 0;
+    }
+    
+    return Math.min ((listagem.number + 1) * listagem.size, listagem.totalElements);
+  }
+
 }
