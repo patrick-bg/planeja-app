@@ -15,9 +15,22 @@
             <div class="form-group">
                 <label for="nome">Nome do Cartão: *</label>
                 <input formControlName="nome" type="text" id="nome" name="nome" placeholder="Ex: Meucartão">
+            
+                @if (form.controls.nome.hasError('required') && form.controls.nome.touched) {
+                    <span class="form-hint form-hint-error">
+                        O nome do cartão é obrigatório.
+                    </span>
+                }
+
+                @if (form.controls.nome.hasError('apiError') && form.controls.nome.touched) {
+                    <span class="form-hint form-hint-error">
+                        {{ form.get('nome')?.errors?.['apiError'] }}
+                    </span>
+                }
             </div>
+
             <div class="form-group">
-                <label for="bandeira">Bandeira do Cartão: *</label>
+                <label for="bandeira">Bandeira: *</label>
                 <select formControlName="bandeira">
                     <option value="">Selecione...</option>
                     <option value="VISA">Visa</option>
@@ -26,15 +39,26 @@
                     <option value="DINERS">Diners</option>
                     <option value="ELO">Elo</option>
                 </select>
-                
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">Salvar</button>
-                    <button type="button" class="btn-secondary">Cancelar</button>
-                </div>
 
+                @if (form.controls.bandeira.hasError('required') && form.controls.bandeira.touched) {
+                    <span class="form-hint form-hint-error">
+                        O nome da bandeira é obrigatório.
+                    </span>
+                }
+
+                @if (form.controls.bandeira.hasError('apiError') && form.controls.bandeira.touched) {
+                    <span class="form-hint form-hint-error">
+                        {{ form.get('bandeira')?.errors?.['apiError'] }}
+                    </span>
+                }
             </div>
-
+                
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Salvar</button>
+                <button type="button" class="btn-secondary">Cancelar</button>
+            </div>
+        
         </form>
-    </div>
 
+    </div>
 </main>
