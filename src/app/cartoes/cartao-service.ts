@@ -24,4 +24,8 @@ export class CartaoService {
     return this.http.get<DetalhesCartao>(`${this.baseUrl}/${id}`);
   }
 
+  atualizar(id: string, dados: DadosCartaoForm) : Observable<void>{
+    return this.http.put<void>(`${this.baseUrl}/${id}`, dados);
+  }
+
 }
