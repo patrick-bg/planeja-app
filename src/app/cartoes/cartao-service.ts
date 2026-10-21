@@ -20,4 +20,8 @@ export class CartaoService {
     return this.http.get<PageResult<DetalhesCartao>>(url);
   }
 
+  obterPorId(id: string) : Observable<DetalhesCartao>{
+    return this.http.get<DetalhesCartao>(`${this.baseUrl}/${id}`);
+  }
+
 }
