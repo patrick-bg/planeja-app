@@ -1,4 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { TipoLancamento } from '../dados-lancamentos';
+import { ToastrService } from 'ngx-toastr';
+import { LancamentoService } from '../lancamento-service';
+import { DetalhesCategoria } from '../../categorias/dados-categoria';
+import { DetalhesCartao } from '../../cartoes/dados-cartao';
+import { forkJoin } from 'rxjs'
+
+interface CadastroLancamentoForm {
+  categoriaId: FormControl<string>;
+  data: FormControl<string>;
+  valor: FormControl<string>;
+  tipo: FormControl<TipoLancamento | ''>;
+  cartaoId: FormControl<string>;
+}
 
 @Component({
   selector: 'app-cadastro-lancamento',
@@ -6,4 +21,35 @@ import { Component } from '@angular/core';
   templateUrl: './cadastro-lancamento.html',
   styleUrl: './cadastro-lancamento.scss',
 })
-export class CadastroLancamento {}
+export class CadastroLancamento implements OnInit{
+  form!: FormGroup<CadastroLancamentoForm>;
+  toast = inject(ToastrService);
+  service = inject(LancamentoService);
+
+  categoriasAtivas: DetalhesCategoria[] = [];
+  cartoesAtivos: DetalhesCartao[] = [];
+
+  ngOnInit(): void {
+    this.form = new FormGroup<CadastroLancamentoForm>({
+      categoriaId: new FormControl<string>('', {nonNullable: true, validators: Validators.required }),
+      data: new FormControl<string>('', {nonNullable: true, validators: Validators.required}),
+      valor: new FormControl<string>('', {nonNullable: true, validators: Validators.required}),
+      tipo: new FormControl<TipoLancamento | ''>('', {nonNullable: true, validators: Validators.required}),
+      cartaoId: new FormControl<string>('', {nonNullable: true }),
+    })
+  }
+
+  inicializarDropDowns(){
+    forkJoin({
+      categorias: this.service.listarCartoesDisponiveis(),
+      cartoes: this.service.listarCartoesDisponiveis()
+    }).subscribe({
+      next: (resultado) => {
+        this.categoriasAtivas = resultado.categorias;
+        this.cartoesAtivos = resultado.cartoes;
+      },
+      error: () => this.toast.error('Erro ao carregar categorias e cartões')
+    })
+  }
+
+}
