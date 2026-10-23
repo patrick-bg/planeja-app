@@ -24,8 +24,39 @@
                         <option [value]="categoria.id">{{ categoria.nome}}</option>
                     }
                 </select>
+
+                <span class="form-hint form-hint-error">A categoria é obrigatória.</span>
             </div>
 
+            <div class="form-group">
+                <label for="data">Data: *</label>
+                <input id="data" nome="data" formControlName="data" type="date">
+                <span class="form-hint form-hint-error">A data é obrigatória.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="valor">Valor: *</label>
+                <input id="valor" nome="valor" formControlName="valor" type="text">
+                <span class="form-hint form-hint-error">O valor é obrigatório.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="cartaoId">Cartão: </label>
+                <select id="cartaoId" formControlName="cartaoId">
+                    <option value="">Selecione...</option>
+                    @for (cartao of cartoesAtivos; track cartao.id) {
+                        <option [value]="cartao.id">{{ cartao.nome}}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Salvar</button>
+                <button type="button" class="btn-secondary">Cancelar</button>
+
+            </div>
+
+            
         </form>
     </div>
 

@@ -57,6 +57,7 @@ export class CadastroLancamento implements OnInit{
   }
 
   handleSubmit(){
+    console.log(this.form.value);
 
   }
 
