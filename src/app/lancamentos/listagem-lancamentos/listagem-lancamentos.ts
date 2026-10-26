@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DetalhesLancamento, TipoLancamento } from '../dados-lancamentos';
 import { CommonModule } from '@angular/common';
@@ -40,12 +40,32 @@ export class ListagemLancamentos implements OnInit {
       tipo: new FormControl<TipoLancamento | ''>('', {nonNullable: true}),
       categoriaId: new FormControl<string>('', {nonNullable: true})
     });
+
+    this.listarLancamentos();
   }
 
   listarLancamentos(){
     const mes = this.form.get('mes')?.value;
     const tipo = this.form.get('tipo')?.value;
     const categoriaId = this.form.get('categoriaId')?.value;
+
+    this.listagem$ = this.service.listar({
+      page: this.paginaAtual,
+      size: this.tamanhoPagina,
+      mes: mes || undefined,
+      tipo: tipo || undefined,
+      categoriaId: categoriaId || undefined
+    });
+  }
+
+  aplicarFiltros(){
+    console.log(this.form.value);
+    this.paginaAtual = 0;
+    //this.listarLancamentos();
+  }
+
+  limparFiltros(){
+    this.form.reset();
   }
 
 }

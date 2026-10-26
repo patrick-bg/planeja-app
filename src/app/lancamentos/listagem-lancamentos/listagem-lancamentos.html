@@ -1,1 +1,49 @@
-<p>listagem-lancamentos works!</p>
+<app-header titulo="Meus Lançamentos"></app-header>
+
+<main class="content">
+    <div class="card-full">
+        <button class="btn-secondary" type="button" [routerLink]="['/paginas/cadastro-lancamentos']">
+            <i class="fa-solid fa-plus"></i>
+            Cadastro Novo
+        </button>
+
+        <div class="table-card">
+            <form [formGroup]="form" class="form" (ngSubmit)="aplicarFiltros()">
+                <div class="filtros-grid">
+                    <div class="form-group filtro-col">
+                        <label for="mes">Mês</label>
+                        <input type="month" id="mes" name="mes" formControlName="mes">
+                    </div>
+
+                    <div class="form-group filtro-col">
+                        <label for="tipo">Tipo:</label>
+                        <select name="tipo" id="tipo" formControlName="tipo">
+                            <option value="RECEITA">Receita</option>
+                            <option value="DESPESA">Despesa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group filtro-col">
+                        <label for="categoriaId">Categoria:</label>
+                        <select name="categoriaId" id="categoriaId" formControlName="categoriaId">
+                            <option value="">Todas</option>
+
+                            @for( categoria of categorias; track categoria.id){
+                                <option [value]="categoria.id">{{ categoria.nome}}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions filtros-actions">
+                    <button type="submit" class="btn-primary">Filtrar</button>
+                    <button type="button" (click)="limparFiltros()" class="btn-secondary">Limpar</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
