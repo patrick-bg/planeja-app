@@ -41,6 +41,7 @@ export class ListagemLancamentos implements OnInit {
       categoriaId: new FormControl<string>('', {nonNullable: true})
     });
 
+    this.listarCategoriasFiltro();
     this.listarLancamentos();
   }
 
@@ -55,6 +56,15 @@ export class ListagemLancamentos implements OnInit {
       mes: mes || undefined,
       tipo: tipo || undefined,
       categoriaId: categoriaId || undefined
+    });
+  }
+
+  listarCategoriasFiltro(){
+    this.service.listarCategoriasParaFiltrar().subscribe({
+      next: (resultado: DetalhesCategoria[]) => {
+        this.categorias = resultado;
+      },
+      error: () => this.toast.error('Erro ao carregar categorias para filtro.')
     });
   }
 
