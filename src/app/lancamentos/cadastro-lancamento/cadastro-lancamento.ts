@@ -10,9 +10,11 @@ import { Header } from '../../commmon/components/header/header';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ValidationErrorResponse } from '../../common/validation/validation-error-model';
+import { NonNullAssert } from '@angular/compiler';
 
 interface CadastroLancamentoForm {
   categoriaId: FormControl<string>;
+  descricao: FormControl<string>;
   data: FormControl<string>;
   valor: FormControl<string>;
   tipo: FormControl<TipoLancamento | ''>;
@@ -36,6 +38,7 @@ export class CadastroLancamento implements OnInit{
   ngOnInit(): void {
     this.form = new FormGroup<CadastroLancamentoForm>({
       categoriaId: new FormControl<string>('', {nonNullable: true, validators: Validators.required }),
+      descricao: new FormControl<string>('', {nonNullable: true, validators: Validators.required}),
       data: new FormControl<string>('', {nonNullable: true, validators: Validators.required}),
       valor: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.min(1)]}),
       tipo: new FormControl<TipoLancamento | ''>('', {nonNullable: true, validators: Validators.required}),
