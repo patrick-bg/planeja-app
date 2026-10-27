@@ -11,6 +11,6 @@ export class DespesaCategoriaResumo {
 
 export class Dashboard {
     mes!: string;
-    resumo!: string;
+    resumoFinanceiro!: ResumoFinanceiro;
     despesasPorCategoria!: DespesaCategoriaResumo[];
 }

@@ -1,1 +1,17 @@
-<p>dashboard-page works!</p>
+<app-header titulo="Dashboard"></app-header>
+
+<main class="content">
+
+    @if (dashboard$ | async; as dashboard) {
+        <section class="dashboard-grid">
+            <div class="metric-card metric-card-balance">
+                <span class="metric-label">Saldo Atual</span>
+                <strong [ngClass]="dashboard.resumoFinanceiro.saldo >= 0 ? 'metric-positive' : 'metric-negative' " >
+                    {{ dashboard.resumoFinanceiro.saldo }}
+                </strong>
+                <small> {{ dashboard.mes }}</small>
+            </div>
+        </section>
+    }
+
+</main>
