@@ -42,6 +42,37 @@
 
             </form>
 
+            @if(listagem$ | async; as listagem) {
+            <table class="datatable">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Categoria</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(lancamento of listagem.content; track lancamento.id){
+                        <tr>
+                            <td> {{ lancamento.data | date: 'dd/MM/yyyy'}}</td>
+                            <td> {{ lancamento.categoriaNome }}</td>
+                            <td> {{ lancamento.tipo }}</td>
+                            <td> {{ lancamento.descricao }}</td>
+                            <td> {{ lancamento.valor | currency: 'BRL'}}</td>
+                            <td class="text-center">
+                                <button class="icon-btn danger" title="Excluir">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
         </div>
 
     </div>
