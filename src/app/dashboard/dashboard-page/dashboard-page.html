@@ -63,6 +63,35 @@
                 </div>
             </div>
 
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <h2>Gastos por Categoria</h2>
+                    <span>Despesas</span>
+                </div>
+
+                @if (dashboard.despesasPorCategoria.length) {
+                    <div class="category-chart">
+                        @for ( despesa of dashboard.despesasPorCategoria; track despesa.categoria) {
+                            <div class="category-row">
+                                <div class="category-label">
+                                    <span>{{ despesa.categoria }} </span>
+                                    <strong> {{ despesa.valor }} </strong>
+                                </div>
+
+                                <div class="bar-track">
+                                    <div class="bar-fill category"
+                                        [style.width.%]="percentual(despesa.valor, maiorDespesaCategoria(dashboard.despesasPorCategoria))"
+                                    >
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+
         </section>
     }
 

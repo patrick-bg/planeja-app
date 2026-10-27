@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DashboardService } from '../dashboard-service';
 import { Observable } from 'rxjs';
-import { Dashboard } from '../dados-dashboard';
+import { Dashboard, DespesaCategoriaResumo } from '../dados-dashboard';
 import { Header } from '../../commmon/components/header/header';
 import { CommonModule } from '@angular/common';
 
@@ -26,6 +26,14 @@ export class DashboardPage implements OnInit{
 
     const resultado = (valor / total) * 100;
     return Math.round(resultado);
+  }
+
+  maiorDespesaCategoria(despesas: DespesaCategoriaResumo[]){
+    if(!despesas.length){
+      return 0;
+    }
+    const valoresDespesas = despesas.map(despesa => despesa.valor);
+    return Math.max(...valoresDespesas);
   }
 
 }
