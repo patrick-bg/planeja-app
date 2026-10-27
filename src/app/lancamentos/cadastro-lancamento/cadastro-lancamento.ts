@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ValidationErrorResponse } from '../../common/validation/validation-error-model';
 import { NonNullAssert } from '@angular/compiler';
+import { RouterModule } from '@angular/router';
 
 interface CadastroLancamentoForm {
   categoriaId: FormControl<string>;
@@ -23,7 +24,7 @@ interface CadastroLancamentoForm {
 
 @Component({
   selector: 'app-cadastro-lancamento',
-  imports: [Header, ReactiveFormsModule, CommonModule, NgxMaskDirective],
+  imports: [Header, ReactiveFormsModule, CommonModule, NgxMaskDirective, RouterModule],
   templateUrl: './cadastro-lancamento.html',
   styleUrl: './cadastro-lancamento.scss',
 })
