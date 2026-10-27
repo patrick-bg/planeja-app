@@ -11,6 +11,58 @@
                 </strong>
                 <small> {{ dashboard.mes }}</small>
             </div>
+
+            <div class="metric-card">
+                <span class="metric-label">Receitas</span>
+                <strong class="metric-positive"> {{ dashboard.resumoFinanceiro.receitas }}</strong>
+                <small>Mês atual</small>
+            </div>
+
+            <div class="metric-card">
+                <span class="metric-label">Despesas</span>
+                <strong class="metric-negative"> {{ dashboard.resumoFinanceiro.despesas }}</strong>
+                <small>Mês atual</small>
+            </div>
+
+        </section>
+
+        <section class="charts-grid">
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <h2>Receitas x Despesas</h2>
+                    <span> {{ dashboard.mes }}</span>
+                </div>
+
+                <div class="comparison-chart">
+                    <div class="comparison-row">
+                        <div class="comparison-label">
+                            <span>Receitas</span>
+                            <strong>{{ dashboard.resumoFinanceiro.receitas}}</strong>
+                        </div>
+
+                        <div class="bar-track">
+                            <div class="bar-fill income"
+                                [style.width.%]="percentual(dashboard.resumoFinanceiro.receitas, dashboard.resumoFinanceiro.receitas + dashboard.resumoFinanceiro.despesas)"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-label">
+                            <span>Despesas</span>
+                            <strong>{{ dashboard.resumoFinanceiro.despesas}}</strong>
+                        </div>
+
+                        <div class="bar-track">
+                            <div class="bar-fill expense"
+                                [style.width.%]="percentual(dashboard.resumoFinanceiro.despesas, dashboard.resumoFinanceiro.receitas + dashboard.resumoFinanceiro.despesas)"
+                            ></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </section>
     }
 

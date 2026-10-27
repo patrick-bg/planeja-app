@@ -19,4 +19,13 @@ export class DashboardPage implements OnInit{
     this.dashboard$ = this.service.obterDashboardMesAtual();
   }
 
+  percentual (valor:number, total:number){
+    if(!total){
+      return 0;
+    }
+
+    const resultado = (valor / total) * 100;
+    return Math.round(resultado);
+  }
+
 }
