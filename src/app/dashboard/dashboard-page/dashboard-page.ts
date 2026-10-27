@@ -36,4 +36,23 @@ export class DashboardPage implements OnInit{
     return Math.max(...valoresDespesas);
   }
 
+  formatarMoeda(valor: number) : string {
+    return new Intl.NumberFormat(
+      'pt-BR', { style: 'currency', currency: 'BRL'}).format(valor || 0);
+  }
+
+  formatarMes(mes: string) : string {
+    if(!mes){
+      return '';
+    }
+
+    const [ano, numeroMes] = mes.split('-').map(Number);
+    const data = new Date(ano, numeroMes - 1, 1);
+    return new Intl.DateTimeFormat('pt-BR', {
+      month: 'long',
+      year: 'numeric'
+    }).format(data);
+  }
+
+
 }

@@ -7,20 +7,20 @@
             <div class="metric-card metric-card-balance">
                 <span class="metric-label">Saldo Atual</span>
                 <strong [ngClass]="dashboard.resumoFinanceiro.saldo >= 0 ? 'metric-positive' : 'metric-negative' " >
-                    {{ dashboard.resumoFinanceiro.saldo }}
+                    {{ formatarMoeda (dashboard.resumoFinanceiro.saldo) }}
                 </strong>
-                <small> {{ dashboard.mes }}</small>
+                <small> {{ formatarMes( dashboard.mes) }}</small>
             </div>
 
             <div class="metric-card">
                 <span class="metric-label">Receitas</span>
-                <strong class="metric-positive"> {{ dashboard.resumoFinanceiro.receitas }}</strong>
+                <strong class="metric-positive"> {{ formatarMoeda(dashboard.resumoFinanceiro.receitas)}}</strong>
                 <small>Mês atual</small>
             </div>
 
             <div class="metric-card">
                 <span class="metric-label">Despesas</span>
-                <strong class="metric-negative"> {{ dashboard.resumoFinanceiro.despesas }}</strong>
+                <strong class="metric-negative"> {{ formatarMoeda( dashboard.resumoFinanceiro.despesas) }}</strong>
                 <small>Mês atual</small>
             </div>
 
@@ -30,14 +30,14 @@
             <div class="chart-panel">
                 <div class="chart-header">
                     <h2>Receitas x Despesas</h2>
-                    <span> {{ dashboard.mes }}</span>
+                    <span> {{ formatarMes( dashboard.mes )}}</span>
                 </div>
 
                 <div class="comparison-chart">
                     <div class="comparison-row">
                         <div class="comparison-label">
                             <span>Receitas</span>
-                            <strong>{{ dashboard.resumoFinanceiro.receitas}}</strong>
+                            <strong>{{ formatarMoeda(dashboard.resumoFinanceiro.receitas)}}</strong>
                         </div>
 
                         <div class="bar-track">
@@ -50,7 +50,7 @@
                     <div class="comparison-row">
                         <div class="comparison-label">
                             <span>Despesas</span>
-                            <strong>{{ dashboard.resumoFinanceiro.despesas}}</strong>
+                            <strong>{{ formatarMoeda(dashboard.resumoFinanceiro.despesas)}}</strong>
                         </div>
 
                         <div class="bar-track">
@@ -75,7 +75,7 @@
                             <div class="category-row">
                                 <div class="category-label">
                                     <span>{{ despesa.categoria }} </span>
-                                    <strong> {{ despesa.valor }} </strong>
+                                    <strong> {{ formatarMoeda(despesa.valor) }} </strong>
                                 </div>
 
                                 <div class="bar-track">
@@ -83,16 +83,17 @@
                                         [style.width.%]="percentual(despesa.valor, maiorDespesaCategoria(dashboard.despesasPorCategoria))"
                                     >
                                     </div>
-
                                 </div>
                             </div>
                         }
                     </div>
+                } @else {
+                    <div class="empty-state">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Nenhuma despesa registrada no mês atual.</span>
+                    </div>
                 }
-
             </div>
-
         </section>
     }
-
 </main>
