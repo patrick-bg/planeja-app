@@ -21,7 +21,7 @@ export class ListagemCategorias implements OnInit {
   toast = inject(ToastrService);
   listagem$!: Observable<PageResult<DetalhesCategoria>>;
   paginaAtual = 0;
-  tamanhoPagina = 5;
+  tamanhoPagina = 10;
 
   ngOnInit(): void {
     this.listarCategorias();
