@@ -34,7 +34,7 @@ export class Login implements OnInit {
       senha: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.min(6)]}),
     });
 
-    if(this.authService.isAutenticad()){
+    if(this.authService.isAutenticado()){
       this.router.navigate(['/paginas/dashboard']);
     }
   }

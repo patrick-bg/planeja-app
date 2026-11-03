@@ -53,7 +53,7 @@ export class AuthService {
     return localStorage.getItem(this.token_key);
   }
 
-  isAutenticad() : boolean {
+  isAutenticado() : boolean {
     if(!this.getToken()){
       return false;
     }
