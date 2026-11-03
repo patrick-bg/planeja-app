@@ -122,4 +122,22 @@ export class AuthService {
     }
   }
 
+  getNomeUsuarioLogado(){
+    const token = this.getToken();
+    if(!token){
+      return null;
+    }
+
+    try{
+      const payload = jwtDecode<JwtPayload>(token);
+      if(!payload.exp){
+        return null;
+      }
+      return payload.nome;
+    } catch{
+      return null;
+    }
+
+  }
+
 }
